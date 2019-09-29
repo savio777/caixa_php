@@ -5,7 +5,7 @@ CREATE DATABASE caixa;
 USE caixa;
 
 CREATE TABLE conta(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_conta_user INT PRIMARY KEY AUTO_INCREMENT,
     nome_empresa VARCHAR(100) NOT NULL,
     endereco VARCHAR(150) NOT NULL,
     bairro VARCHAR(50) NOT NULL,
@@ -16,43 +16,48 @@ CREATE TABLE conta(
 );
 
 CREATE TABLE conta_cliente(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_conta INT PRIMARY KEY AUTO_INCREMENT,
     banco VARCHAR(100) NOT NULL,
     agencia INT NOT NULL,
     num_conta INT NOT NULL
 );
 
 CREATE TABLE cliente(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
     data_fundacao DATE NOT NULL,
-    frequencia_compra VARCHAR(30) NOT NULL,
-    classificao_cliente VARCHAR(1) NOT NULL,
-    referencia_comercial VARCHAR(150) NOT NULL,
-    credito_consultado BOOLEAN NOT NULL,
+    frequencia_compra VARCHAR(30) NOT NULL, -- anual, mes, semanal
+    classificao_cliente VARCHAR(1) NOT NULL, -- a, b, c
+    referencia_comercial VARCHAR(150),
+    credito_consultado BOOLEAN NOT NULL, -- 1, 0
     telefone VARCHAR(30) NOT NULL,
     id_conta_cliente INT NOT NULL,
-    CONSTRAINT fk_idcontacliente_cliente FOREIGN KEY (id_conta_cliente) REFERENCES conta_cliente(id)
+    CONSTRAINT fk_idcontacliente_cliente FOREIGN KEY (id_conta_cliente) 
+        REFERENCES conta_cliente(id_conta)
 );
 
 CREATE TABLE fornecedor(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_fornecedor INT PRIMARY KEY AUTO_INCREMENT,
     nome_fornecedor VARCHAR(50) NOT NULL,
     cnpj INT NOT NULL
 );
 
 CREATE TABLE saldo(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_saldo INT PRIMARY KEY AUTO_INCREMENT,
     valor FLOAT NOT NULL,
     id_cliente INT NOT NULL,
-    CONSTRAINT fk_cliente_saldo FOREIGN KEY (id_cliente) REFERENCES cliente(id)
+    CONSTRAINT fk_cliente_saldo FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
 );
 
 CREATE TABLE transacoes(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_transacoes INT PRIMARY KEY AUTO_INCREMENT,
     tipo VARCHAR(30) NOT NULL,
     descricao VARCHAR(50) NOT NULL,
     valor FLOAT NOT NULL,
     data_transacao DATETIME NOT NULL,
     id_saldo INT NOT NULL,
-    CONSTRAINT fk_transacoes_saldo FOREIGN KEY (id_saldo) REFERENCES saldo(id)
+    id_fornecedor_transacoes INT NOT NULL,
+    CONSTRAINT fk_transacoes_saldo FOREIGN KEY (id_saldo) REFERENCES saldo(id_saldo),
+    CONSTRAINT fk_fornecedor_transacoes FOREIGN KEY (id_fornecedor_transacoes) 
+        REFERENCES fornecedor(id_fornecedor)
 );

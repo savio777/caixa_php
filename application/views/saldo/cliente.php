@@ -13,6 +13,8 @@
 
 <body>
   <?php var_dump($cliente)?>
+
+  
 </body>
 
 </html>

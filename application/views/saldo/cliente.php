@@ -12,13 +12,15 @@
 </head>
 
 <body>
-  <?php var_dump($cliente) ?>
   <br>
-  <?php var_dump($fornecedores) ?>
-  <br><br>
-  <?php var_dump($saldo) ?>
-  <br><br><br>
   <div class="container">
+    <div class="card-panel teal indigo">
+      <h4>Saldo Atual do Cliente: <?php echo $saldo[0]->valor ?></h4>
+    </div><br>
+
+    <div class="card-panel teal indigo">
+      <h5>Fazer Transação</h5>
+    </div>
     <div class="row">
       <form class="col s12" action="../transacao/<?php echo $cliente[0]->id_cliente ?>" method="POST">
         <input type="hidden" name="id_saldo" value="<?php echo $saldo[0]->id_saldo ?>">
@@ -63,8 +65,30 @@
         </div>
       </form>
     </div>
+    <br><br>
+    <div class="card-panel teal indigo">
+      <h5>Transações feitas</h5>
+    </div>
+    <br>
     <table class="highlight">
-
+      <thead>
+        <tr>
+          <td>Tipo</td>
+          <td>Descrição</td>
+          <td>Valor</td>
+          <td>Data Transação</td>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($transacoes as $i) { ?>
+          <tr>
+            <td><?php echo $i->tipo ?></td>
+            <td><?php echo $i->descricao ?></td>
+            <td><?php echo $i->valor ?></td>
+            <td><?php echo $i->data_transacao ?></td>
+          </tr>
+        <?php } ?>
+      </tbody>
     </table>
   </div>
 

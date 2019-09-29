@@ -1,3 +1,5 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +23,7 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="../index.php/cliente">Clientes</a></li>
         <li><a href="badges.html">Fornecedores</a></li>
-        <li><a href="collapsible.html">Banco</a></li>
+        <!--<li><a href="collapsible.html">Banco</a></li>-->
       </ul>
     </div>
   </nav>

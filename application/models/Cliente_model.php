@@ -37,4 +37,13 @@ class Cliente_model extends CI_Model
         $sql = $this->db->query($select . $inner_join);
         return $sql->result();
     }
+
+    public function pegar_cliente($id_cliente)
+    {
+        $select = 'SELECT * FROM cliente ';
+        $inner_join = 'INNER JOIN conta_cliente ON cliente.id_conta_cliente = conta_cliente.id_conta';
+        $where = ' WHERE cliente.id_cliente = ?';
+        $sql = $this->db->query($select . $inner_join . $where, array($id_cliente));
+        return $sql->result();
+    }
 }

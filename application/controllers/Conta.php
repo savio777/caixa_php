@@ -19,8 +19,6 @@ class Conta extends CI_Controller
         $this->load->view('conta/cadastrar');
     }
 
-
-
     // models
 
     public function teste_cadastro()

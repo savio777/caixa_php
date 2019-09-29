@@ -18,10 +18,10 @@ class Saldo_model extends CI_Model
         return $sql->result();
     }
 
-    public function atualizar_saldo($data)
+    public function atualizar_saldo($data, $id_cliente)
     {
-        $this->db->where('id_cliente', $data['id_cliente']);
-        $this->db->set('valor', $data['valor']);
+        $this->db->where('id_cliente', $id_cliente);
+        $this->db->set('valor', $data[0]->valor);
         $this->db->update('saldo');
     }
 

@@ -10,6 +10,7 @@ class Cliente extends CI_Controller
         parent::__construct();
         $this->load->model('Cliente_model');
         $this->load->model('Saldo_model');
+        $this->load->model('Fornecedores_model');
     }
 
     // views
@@ -30,14 +31,31 @@ class Cliente extends CI_Controller
         $cliente = $this->Cliente_model->pegar_cliente($id_cliente);
         $saldo = $this->Saldo_model->pegar_saldo($id_cliente);
         $transacoes = $this->Saldo_model->pegar_transacao($saldo[0]->id_saldo);
+        $fornecedores = $this->Fornecedores_model->pegar();
 
         $data = array(
             'cliente' => $cliente,
             'saldo' => $saldo,
-            'transacoes' => $transacoes
+            'transacoes' => $transacoes,
+            'fornecedores' => $fornecedores
         );
 
         $this->load->view('saldo/cliente', $data);
+    }
+
+    public function transacao($id_cliente)
+    {
+        $this->Saldo_model->salvar_transacao($this->input->post());
+        $saldo = $this->Saldo_model->pegar_saldo($id_cliente);
+
+        if ($this->input->post('tipo') == 'entrada') {
+            $saldo[0]->valor = $saldo[0]->valor + $this->input->post('valor');
+        } elseif ($this->input->post('tipo') == 'saida') {
+            $saldo[0]->valor = $saldo[0]->valor -  $this->input->post('valor');
+        }
+
+        $this->Saldo_model->atualizar_saldo($saldo, $id_cliente);
+        $this->saldo($id_cliente);
     }
 
     // models

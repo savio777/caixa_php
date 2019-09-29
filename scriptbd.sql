@@ -28,7 +28,7 @@ CREATE TABLE cliente(
     frequencia_compra VARCHAR(30) NOT NULL,
     classificao_cliente VARCHAR(1) NOT NULL,
     referencia_comercial VARCHAR(150) NOT NULL,
-    credito_consultado BOOL NOT NULL,
+    credito_consultado BOOLEAN NOT NULL,
     telefone VARCHAR(30) NOT NULL,
     id_conta_cliente INT NOT NULL,
     CONSTRAINT fk_idcontacliente_cliente FOREIGN KEY (id_conta_cliente) REFERENCES conta_cliente(id)
@@ -40,6 +40,13 @@ CREATE TABLE fornecedor(
     cnpj INT NOT NULL
 );
 
+CREATE TABLE saldo(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    valor FLOAT NOT NULL,
+    id_cliente INT NOT NULL,
+    CONSTRAINT fk_cliente_saldo FOREIGN KEY (id_cliente) REFERENCES cliente(id)
+);
+
 CREATE TABLE transacoes(
     id INT PRIMARY KEY AUTO_INCREMENT,
     tipo VARCHAR(30) NOT NULL,
@@ -48,11 +55,4 @@ CREATE TABLE transacoes(
     data_transacao DATETIME NOT NULL,
     id_saldo INT NOT NULL,
     CONSTRAINT fk_transacoes_saldo FOREIGN KEY (id_saldo) REFERENCES saldo(id)
-);
-
-CREATE TABLE saldo(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    valor FLOAT NOT NULL,
-    id_cliente INT NOT NULL,
-    CONSTRAINT fk_cliente_saldo FOREIGN KEY (id_cliente) REFERENCES cliente(id)
 );

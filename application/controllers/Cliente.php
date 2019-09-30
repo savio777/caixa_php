@@ -78,7 +78,9 @@ class Cliente extends CI_Controller
 
     public function apagar_cliente($id_cliente)
     {
+        $cliente = $this->Cliente_model->pegar_cliente_editar($id_cliente);
         $this->Cliente_model->apagar($id_cliente);
+        $this->Cliente_model->apagar_conta($cliente[0]->id_conta_cliente);
 
         echo "<script>window.location.href='../../cliente'</script>";
     }

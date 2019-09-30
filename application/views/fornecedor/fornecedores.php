@@ -27,6 +27,15 @@
           <tr>
             <td><?php echo $i->nome_fornecedor ?></td>
             <td><?php echo $i->cnpj ?></td>
+            <td>
+              <a href="fornecedor/editar/<?php echo $i->id_fornecedor ?>">
+                <i class="material-icons">create</i>
+              </a>
+            </td>
+            <td><a href="fornecedor/excluir/<?php echo $i->id_fornecedor ?>">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
           </tr>
         <?php } ?>
       </tbody>

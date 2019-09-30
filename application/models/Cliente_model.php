@@ -17,6 +17,12 @@ class Cliente_model extends CI_Model
         $this->db->insert('conta_cliente');
     }
 
+    public function apagar_conta($id_conta)
+    {
+        $this->db->where('id_conta', $id_conta);
+        $this->db->delete('conta_cliente');
+    }
+
     public function salvar_cliente($data)
     {
         $this->db->set('nome', $data['nome']);

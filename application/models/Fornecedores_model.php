@@ -25,16 +25,18 @@ class Fornecedores_model extends CI_Model
     {
         $this->db->where('id_fornecedor', $id);
         $sql = $this->db->get('fornecedor');
-        return $sql->return();
+        return $sql->result();
     }
 
-    public function editar()
+    public function editar($data)
     {
-
+        $this->db->where('id_fornecedor', $data['id_fornecedor']);
+        $this->db->update('fornecedor', $data);
     }
 
-    public function apagar()
+    public function apagar($id_fornecedor)
     {
-        
+        $this->db->where('id_fornecedor', $id_fornecedor);
+        $this->db->delete('fornecedor');
     }
 }

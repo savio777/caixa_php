@@ -24,6 +24,12 @@ class Fornecedor extends CI_Controller
         $this->load->view('fornecedor/cadastrar');
     }
 
+    public function editar($id_fornecedor)
+    {
+        $fornecedor = $this->Fornecedores_model->pegar_id($id_fornecedor);
+        $this->load->view('fornecedor/editar', array('fornecedor' => $fornecedor));
+    }
+
     // models
 
     public function cadastrar_dados()
@@ -31,5 +37,20 @@ class Fornecedor extends CI_Controller
         $this->Fornecedores_model->salvar($this->input->post());
 
         echo "<script>window.location.href='../fornecedor'</script>";
+    }
+
+    public function editar_dados()
+    {
+        $this->Fornecedores_model->editar($this->input->post());
+
+        echo "<script>window.location.href='../fornecedor'</script>";
+    }
+
+
+    public function excluir($id_fornecedor)
+    {
+        $this->Fornecedores_model->apagar($id_fornecedor);
+
+        echo "<script>window.location.href='../../fornecedor'</script>";
     }
 }

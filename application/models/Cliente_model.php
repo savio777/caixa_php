@@ -46,4 +46,23 @@ class Cliente_model extends CI_Model
         $sql = $this->db->query($select . $inner_join . $where, array($id_cliente));
         return $sql->result();
     }
+
+    public function pegar_cliente_editar($id_cliente)
+    {
+        $this->db->where('id_cliente', $id_cliente);
+        $sql = $this->db->get('cliente');
+        return $sql->result();
+    }
+
+    public function apagar($id_cliente)
+    {
+        $this->db->where('id_cliente', $id_cliente);
+        $this->db->delete('cliente');
+    }
+
+    public function editar($data)
+    {
+        $this->db->where('id_cliente', $data['id_cliente']);
+        $this->db->update('cliente', $data);
+    }
 }

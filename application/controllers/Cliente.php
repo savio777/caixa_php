@@ -58,6 +58,12 @@ class Cliente extends CI_Controller
         $this->saldo($id_cliente);
     }
 
+    public function editar($id_cliente)
+    {
+        $cliente = $this->Cliente_model->pegar_cliente_editar($id_cliente);
+        $this->load->view('cliente/editar', array('cliente' => $cliente));
+    }
+
     // models
 
     public function cadastrar_dados()
@@ -71,8 +77,16 @@ class Cliente extends CI_Controller
     }
 
     public function apagar_cliente($id_cliente)
-    { }
+    {
+        $this->Cliente_model->apagar($id_cliente);
 
-    public function editar_cliente($id_cliente)
-    { }
+        echo "<script>window.location.href='../../cliente'</script>";
+    }
+
+    public function editar_cliente()
+    {
+        $this->Cliente_model->editar($this->input->post());
+
+        echo "<script>window.location.href='../cliente'</script>";
+    }
 }

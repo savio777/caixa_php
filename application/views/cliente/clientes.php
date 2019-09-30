@@ -37,9 +37,17 @@
             <td><?php echo $i->banco ?></td>
             <td><?php echo $i->agencia ?></td>
             <td><?php echo $i->num_conta ?></td>
-            <td><a href="#"><i class="material-icons">create</i></a></td>
-            <td><a href="#"><i class="material-icons">delete</i></a></td>
-            <td><a href="cliente/saldo/<?php echo $i->id_cliente ?>">
+            <td>
+              <a href="cliente/editar/<?php echo $i->id_cliente ?>">
+                <i class="material-icons">create</i>
+              </a>
+            </td>
+            <td><a href="cliente/apagar_cliente/<?php echo $i->id_cliente ?>">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+            <td>
+              <a href="cliente/saldo/<?php echo $i->id_cliente ?>">
                 <i class="material-icons">attach_money</i></a>
             </td>
           </tr>

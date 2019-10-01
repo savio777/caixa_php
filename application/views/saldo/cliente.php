@@ -8,14 +8,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <title>Saldo</title>
+  <title>Saldo: <?php echo $cliente[0]->nome ?></title>
 </head>
 
 <body>
-  <br>
   <div class="container">
+    <a href="../../home" class="waves-effect waves-light btn">voltar</a>
+    <br>
     <div class="card-panel teal indigo">
-      <h4>Saldo Atual do Cliente: <?php echo $saldo[0]->valor ?></h4>
+      <h4>Saldo Atual do Cliente: <?php echo $cliente[0]->valor ?></h4>
     </div><br>
 
     <div class="card-panel teal indigo">
@@ -23,7 +24,7 @@
     </div>
     <div class="row">
       <form class="col s12" action="../transacao/<?php echo $cliente[0]->id_cliente ?>" method="POST">
-        <input type="hidden" name="id_saldo" value="<?php echo $saldo[0]->id_saldo ?>">
+        <input type="hidden" name="id_saldo" value="<?php echo $cliente[0]->id_saldo_cliente ?>">
         <div class="row">
           <div class="input-field col s12">
             <select id="tipo" name="tipo">

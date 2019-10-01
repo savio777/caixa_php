@@ -29,13 +29,11 @@ class Cliente extends CI_Controller
     public function saldo($id_cliente)
     {
         $cliente = $this->Cliente_model->pegar_cliente($id_cliente);
-        $saldo = $this->Saldo_model->pegar_saldo($id_cliente);
-        $transacoes = $this->Saldo_model->pegar_transacao($saldo[0]->id_saldo);
+        $transacoes = $this->Saldo_model->pegar_transacao($cliente[0]->id_saldo_cliente);
         $fornecedores = $this->Fornecedores_model->pegar();
 
         $data = array(
             'cliente' => $cliente,
-            'saldo' => $saldo,
             'transacoes' => $transacoes,
             'fornecedores' => $fornecedores
         );
@@ -54,7 +52,7 @@ class Cliente extends CI_Controller
             $saldo[0]->valor = $saldo[0]->valor -  $this->input->post('valor');
         }
 
-        $this->Saldo_model->atualizar_saldo($saldo, $id_cliente);
+        $this->Saldo_model->atualizar_saldo($saldo, $saldo[0]->id_saldo);
         $this->saldo($id_cliente);
     }
 
@@ -71,6 +69,7 @@ class Cliente extends CI_Controller
         $data = $this->input->post();
 
         $this->Cliente_model->salvar_conta($data);
+        $this->Saldo_model->salvar_saldo();
         $this->Cliente_model->salvar_cliente($data);
 
         echo "<script>window.location.href='../cliente'</script>";

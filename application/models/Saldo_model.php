@@ -12,23 +12,24 @@ class Saldo_model extends CI_Model
 
     public function pegar_saldo($id_cliente)
     {
-        $this->db->where('id_cliente', $id_cliente);
-        $this->db->select('id_saldo, valor');
-        $sql = $this->db->get('saldo');
+        $select = 'SELECT saldo.id_saldo, saldo.valor FROM saldo ';
+        $inner_join = 'INNER JOIN cliente ON cliente.id_saldo_cliente = saldo.id_saldo';
+        $where = ' WHERE cliente.id_cliente = ?';
+        $sql = $this->db->query($select .  $inner_join . $where, array($id_cliente));
         return $sql->result();
     }
 
-    public function atualizar_saldo($data, $id_cliente)
+    public function atualizar_saldo($data, $id_saldo)
     {
-        $this->db->where('id_cliente', $id_cliente);
+        //$sql = 'UPDATE saldo SET valor = ? WHERE id_saldo = ? ';
+        $this->db->where('id_saldo', $id_saldo);
         $this->db->set('valor', $data[0]->valor);
         $this->db->update('saldo');
     }
 
-    public function salvar_saldo($id_cliente)
+    public function salvar_saldo()
     {
         $this->db->set('valor', 0);
-        $this->db->set('id_cliente', $id_cliente);
         $this->db->insert('saldo');
     }
 

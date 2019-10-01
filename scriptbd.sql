@@ -22,6 +22,11 @@ CREATE TABLE conta_cliente(
     num_conta INT NOT NULL
 );
 
+CREATE TABLE saldo(
+    id_saldo INT PRIMARY KEY AUTO_INCREMENT,
+    valor FLOAT NOT NULL
+);
+
 CREATE TABLE cliente(
     id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
@@ -32,8 +37,10 @@ CREATE TABLE cliente(
     credito_consultado BOOLEAN NOT NULL, -- 1, 0
     telefone VARCHAR(30) NOT NULL,
     id_conta_cliente INT NOT NULL,
+    id_saldo_cliente INT NOT NULL,
     CONSTRAINT fk_idcontacliente_cliente FOREIGN KEY (id_conta_cliente) 
-        REFERENCES conta_cliente(id_conta)
+        REFERENCES conta_cliente(id_conta),
+    CONSTRAINT fk_idsaldo FOREIGN KEY (id_saldo_cliente) REFERENCES saldo(id_saldo)
 );
 
 CREATE TABLE fornecedor(
@@ -42,12 +49,6 @@ CREATE TABLE fornecedor(
     cnpj INT NOT NULL
 );
 
-CREATE TABLE saldo(
-    id_saldo INT PRIMARY KEY AUTO_INCREMENT,
-    valor FLOAT NOT NULL,
-    id_cliente INT NOT NULL,
-    CONSTRAINT fk_cliente_saldo FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
-);
 
 CREATE TABLE transacoes(
     id_transacoes INT PRIMARY KEY AUTO_INCREMENT,

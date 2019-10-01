@@ -33,6 +33,7 @@ class Cliente_model extends CI_Model
         $this->db->set('credito_consultado', $data['credito_consultado']);
         $this->db->set('telefone', $data['telefone']);
         $this->db->set('id_conta_cliente', $this->db->count_all_results('conta_cliente'));
+        $this->db->set('id_saldo_cliente', $this->db->count_all_results('saldo'));
         $this->db->insert('cliente');
     }
 
@@ -47,9 +48,10 @@ class Cliente_model extends CI_Model
     public function pegar_cliente($id_cliente)
     {
         $select = 'SELECT * FROM cliente ';
-        $inner_join = 'INNER JOIN conta_cliente ON cliente.id_conta_cliente = conta_cliente.id_conta';
+        $inner_join = 'INNER JOIN conta_cliente ON cliente.id_conta_cliente = conta_cliente.id_conta ';
+        $inner_join2 = 'INNER JOIN saldo ON saldo.id_saldo = cliente.id_saldo_cliente';
         $where = ' WHERE cliente.id_cliente = ?';
-        $sql = $this->db->query($select . $inner_join . $where, array($id_cliente));
+        $sql = $this->db->query($select . $inner_join . $inner_join2 . $where, array($id_cliente));
         return $sql->result();
     }
 
